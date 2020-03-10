@@ -37,6 +37,7 @@ def query_scorepage(rivalcode, difficulty):
     """returns a list of Scores """
     url = f"http://skillattack.com/sa4/dancer_score.php?_=rival&ddrcode={rivalcode}&style=0&difficulty={difficulty}"
     r = requests.get(url)
+    r.encoding = 'shift_jis'
     parser = SAParser(r.text)
     songids = parser.get_songids()
     songnames = parser.get_songnames()
