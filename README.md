@@ -1,3 +1,5 @@
 ## yeet
 
-python3.6
+'''python
+python3.6 -m unittest discover
+'''
