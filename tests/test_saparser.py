@@ -26,4 +26,6 @@ class TestQueryScorepage(unittest.TestCase):
         data = query_scorepage('51527333', '14')
 #self.assertEqual(119, len(data))
         for i in data:
-            print(i)
+            if i.hasEmpty():
+                print(i)
+            self.assertFalse(i.hasEmpty())

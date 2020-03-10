@@ -11,6 +11,17 @@ class Score:
         self.score = score
         self.combotype = combotype
 
+    def hasEmpty(self):
+        ''' returns true if one or more of the fields is empty '''
+        return (not self.songid or
+                not self.difficulty or
+                not self.chart or
+                not self.songname or
+                not self.rivalcode or
+                not self.score or
+                not self.combotype
+               )
+
     def __str__(self):
         return f"{self.rivalcode} | {self.songid} | {self.difficulty} | {self.songname} | {self.chart} | {self.score}"
 
