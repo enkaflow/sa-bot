@@ -1,0 +1,685 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS" />
+
+<!-- --><style type="text/css">
+body {
+  margin: 0;
+  color: #444444;
+  background-color: #ffffff;
+  font-family: 'CI', Verdana, 'MS PGothic';
+  text-align: center;
+  line-height: 130%;
+  font-size: 10pt;
+}
+input {
+  font-family: 'CI', Verdana, 'MS PGothic';
+  font-size: 10pt;
+}
+table, td, th {
+  font-size: 10pt;
+  border: 1px #aaaaaa solid;
+}
+table {
+  text-align: center;
+  line-height: 120%;
+}
+th {
+  background-color: #dddddd;
+  font-weight: normal;
+}
+div.wrapper {
+  position: relative;
+  text-align: left;
+  margin: 0 auto 0 auto;
+  width: 980px;
+}
+div.breadcrumb {
+  width: 980px;
+  margin: 10px 0 0 0;
+}
+div.breadcrumbLeft {
+  float: left;
+  line-height: 200%;
+  width: 640px;
+}
+div.breadcrumbRight {
+  float: left;
+  width: 330px;
+}
+span.difficulty {
+  font-size: 8pt;
+}
+
+div.rightNavi {
+  text-align: center;
+  min-height: 30px;
+}
+ul.dropdown li { display: none; }
+
+a.text {
+  color: #444444;
+  text-decoration: none;
+}
+div.footer {
+  margin: 45px 0 15px 0;
+}
+div.process_time {
+  text-align: right;
+  color: #888888;
+  font-size: 8pt;
+}
+td.void  { background-color: #cccccc; }
+td.scope { background-color: #ffcccc; }
+td.beginner , a.beginner  { color: #33aaaa; font-weight: normal; }
+td.basic    , a.basic     { color: #aa8800; font-weight: normal; }
+td.difficult, a.difficult { color: #dd3377; font-weight: normal; }
+td.expert   , a.expert    { color: #008844; font-weight: normal; }
+td.challenge, a.challenge { color: #dd33dd; font-weight: normal; }
+td.notFc { background-color: #eeeeee; }
+td.fc  { background-color: #ddffdd; }
+td.pfc { background-color: #ffffdd; }
+td.mfc { font-size: 11pt; font-weight: bold; }
+th.name      { width: 115px; }
+th.skill     { width: 80px; }
+th.update    { width: 130px; }
+th.comment   { width: 275px; }
+th.difficulty{ width: 30px; }
+th.score     { width: 90px; }
+th.music     { width: 300px; }
+th.sequence  { width: 100px; }
+th.styleSequence { width: 140px; }
+th.fc       { width: 35px; }
+td.name     { word-break: break-all; }
+td.comment  { word-break: break-all; }
+td.music    { word-break: break-all; }
+.changeDisplay {
+  color: #888888;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.sort {
+  color: #008800;
+  cursor: pointer;
+  text-decoration: underline;
+}
+</style><!-- -->
+<style type="text/css"><!--
+a.styleDifficulty {
+  color: #888888;
+  font-family: Gulim, 'CI', Verdana, 'MS PGothic';
+  font-size: 21pt;
+}
+--></style>
+
+
+<!-- --><script type="text/javascript">
+g = new Array();
+g['sSystemName']     = 'Skill Attack';
+g['sHost']           = 'skillattack.com';
+g['sUrlProject']     = 'http://skillattack.com/sa4';
+g['dMaxDifficulty']  = 20;
+g['dsDifficulty']    = new Array('P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20');
+g['dsStyle']         = new Array('Single', 'Double');
+g['dsSequence']      = new Array('BEGINNER', 'BASIC', 'DIFFICULT', 'EXPERT', 'CHALLENGE');
+g['dsSequenceShort'] = new Array('BEG',      'BAS'  , 'DIF'      , 'EXP'   , 'CHA'      );
+g['dsSequenceClass'] = new Array('beginner', 'basic', 'difficult', 'expert', 'challenge');
+g['dsFcClass']       = new Array('', 'fc', 'pfc', 'mfc');
+g['dsArea']          = new Array('','kC¹','ÂX§','âè§','Hc§','{é§','R`§','§','éÊ§','Qn§','ÈØ§','ïé§','s','çt§','_Þì§','¤m§','ò§','Od§','Ãª§','R§','·ì§','V§','xR§','Îì§','ä§',' ê§','s{','åã{','ºÉ§','ÞÇ§','aÌR§','¿§','ì§','¤Q§','m§','¹æ§','ª§','ªR§','L§','Rû§','ª§','²ê§','·è§','F{§','åª§','{è§','­§','«ê§','`','Ø','äp','AJ','[bp','CO','Ji_','VK|[','^C','I[XgA','j[W[h','CMX','C^A','XyC','hCc','tX','|gK','ChlVA','tBs');
+dJavaScriptStart = new Date() - 0;
+dNowYear = new Date().getYear(); if (dNowYear < 1970) { dNowYear += 1900; }
+g['ssParameter'] = getURLParameter();
+
+function buildProcessTime(dJavaScriptStart, sPHPProcessTime)
+{
+  var dJavaScriptEnd, dSecond, sAfter, sProcess;
+
+  dJavaScriptEnd = new Date() - 0;
+  dSecond = Math.floor((dJavaScriptEnd - dJavaScriptStart) / 1000);
+  dAfter = (dJavaScriptEnd - dJavaScriptStart) % 1000;
+  if      (dAfter < 10 ) { sAfter = '.00' + dAfter; }
+  else if (dAfter < 100) { sAfter = '.0'  + dAfter; }
+  else                   { sAfter = '.'   + dAfter; }
+  sProcess = dSecond + sAfter;
+  
+  return 'ProcessTime [PHP]' + sPHPProcessTime + ' [JS]' + sProcess;
+}
+
+function getURLParameter()
+{
+  var i, ssParameter, sQuery, dsQuery, dsKeyValue;
+
+  ssParameter = new Array();
+
+  sQuery = location.search;
+  if (sQuery == '') {
+    return ssParameter;
+  }
+  
+  dsQuery = sQuery.replace( '?' , '' ).split( '&' );
+  for (i = 0; i < dsQuery.length; i++) {
+    dsKeyValue = dsQuery[i].split( '=' );
+    ssParameter[ dsKeyValue[0] ] = dsKeyValue[1];
+  }
+
+  return ssParameter;
+}
+
+function buildFooter(dNowYear)
+{
+  return '<hr size="1" />                                                                  ' +
+         '<table style="border: none; color: #888888; font-size: 10pt;" align="center"><tr>' +
+         '  <td style="border: none;">                                                     ' +
+         '  </td>                                                                          ' +
+         '  <td style="border: none; width: 20px;"></td>                                   ' +
+         '  <td class="copyright" style="border: none; text-align: left;">                 ' +
+         '    Please feel free to make links to my website.<br />                          ' +
+         '    Copyright 2004-' + dNowYear + ' <a href="mailto:ag2mati@gmail.com" style="color: #888888;">C.Matoba</a> Some rights reserved.' +
+         '  </td>      ' +
+         '</tr></table>';
+}
+
+function buildAnchorTwitter(sTwitter)
+{
+  return '<a href="https://twitter.com/' + sTwitter + '/">@' + sTwitter + '</a>';
+}
+
+/**
+ * HashFñ³zñ\[gÌNX.
+ */
+function Hash(_sKey, _dValue)
+{
+  this.sKey   = _sKey;
+  this.dValue = _dValue;
+}
+function sortHash(dhHash)
+{
+  function quicksortHash(start, end)
+  {
+    var n;
+    var x = dhHash[Math.floor((start + end) / 2)].dValue;
+    var i = start;
+    var j = end;
+  
+    while (true) {
+      while (dhHash[i].dValue < x) {
+        i++;
+      }
+      while (x < dhHash[j].dValue) {
+        j--;
+      }
+      if (j <= i) {
+        break;
+      }
+      n = dhHash[i];
+      dhHash[i] = dhHash[j];
+      dhHash[j] = n;
+      i++;
+      j--; 
+    }
+    if (start < i - 1) {
+      quicksortHash(start, i - 1);
+    }
+    if (j + 1 < end) {
+      quicksortHash(j + 1, end);
+    }
+  }
+
+  quicksortHash(0, dhHash.length - 1);
+
+  return dhHash;
+}
+
+/**
+ * üÍzñð¸\[g·é½ßÌL[zñðæ¾.
+ * @param   zñ
+ * @return  ¸\[gÌ½ßÌL[zñ
+ */
+function createAscKeys(dsArray)
+{
+  var i, dhHash, ddSort;
+  
+  if (dsArray.length == 0) {
+    return new Array();
+  }
+  
+  dhHash = new Array();
+  for (i = 0; i < dsArray.length; i++) {
+    dhHash[i] = new Hash(i, dsArray[i]);
+  }
+  dhHash = sortHash(dhHash);
+  ddSort = new Array();
+  for (i = 0; i < dsArray.length; i++) {
+    ddSort[i] = dhHash[i].sKey - 0;
+  }
+  
+  return ddSort;
+}
+
+/**
+ * üÍzñð~\[g·é½ßÌL[zñðæ¾.
+ * @param   zñ
+ * @return  ~\[gÌ½ßÌL[zñ
+ */
+function createDescKeys(dsArray)
+{
+  var i, dhHash, ddSort;
+  
+  if (dsArray.length == 0) {
+    return new Array();
+  }
+  
+  dhHash = new Array();
+  for (i = 0; i < dsArray.length; i++) {
+    dhHash[i] = new Hash(i, dsArray[i]);
+  }
+  dhHash = sortHash(dhHash);
+  ddSort = new Array();
+  for (i = 0; i < dsArray.length; i++) {
+    ddSort[i] = dhHash[dsArray.length - 1 - i].sKey - 0;
+  }
+  
+  return ddSort;
+}
+
+/**
+ * üÍÌlzñÌRankðæ¾.
+ * @param  lzñ
+ * @param  ~\[gÌ½ßÌL[zñ
+ * @return  lzñÉÎ·éRank
+ */
+function createRank(ddArray, ddDescKeys) {
+  var ddRank, dUpperPoint, dUpperRank, i;
+  
+  ddRank = new Array();
+  dUpperPoint = 999999999;
+  dUpperRank = 0;
+  for (i = 0; i < ddDescKeys.length; i++) {
+    if (ddArray[ddDescKeys[i]] < dUpperPoint) {
+      ddRank[ddDescKeys[i]] = i + 1;
+      dUpperPoint = ddArray[ddDescKeys[i]];
+      dUpperRank = ddRank[ddDescKeys[i]];
+    } else {
+      ddRank[ddDescKeys[i]] = dUpperRank;
+    }
+  }
+  
+  return ddRank;
+}
+
+function rightVisible(right_ul_id)
+{
+  var i;
+  var right_li_id_first = right_ul_id + '_first';
+  var right_ul          = document.getElementById(right_ul_id);
+  var right_li_array    = right_ul.childNodes; 
+  
+  right_ul.style.backgroundColor = '#ffddbb';
+  for (i = 1; i < right_li_array.length; i++) {
+    right_li_array[i].style.display = 'block';
+  }
+}
+
+function rightHidden(right_ul_id)
+{
+  var i;
+  var right_li_id_first = right_ul_id + '_first';
+  var right_ul          = document.getElementById(right_ul_id);
+  var right_li_array    = right_ul.childNodes; 
+  
+  right_ul.style.backgroundColor = '#ffffff';
+  for (i = 1; i < right_li_array.length; i++) {
+    right_li_array[i].style.display = 'none';
+  }
+}
+
+function buildDancerRightNavi(sDdrcode)
+{
+  return '<div style="position: absolute; top: 55px; right: 262px; width: 70px;"><a href="./dancer_skillpoint.php?ddrcode=' + sDdrcode + '">Skill Point</a></div>' +
+         '<div style="position: absolute; top: 55px; right: 210px; width: 50px;"><a href="./dancer_score.php?_=update&ddrcode=' + sDdrcode + '">Update</a></div>' +
+         '<div style="position: absolute; top: 55px; right: 163px; width: 45px;"><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '">Score</a></div>' +
+         '<ul id="right_difficulty" class="dropdown" style="position: absolute; top: 55px; right: 95px; width: 68px; list-style: none; margin: 0; padding: 0;" onmouseover="rightVisible(\'right_difficulty\');" onmouseout="rightHidden(\'right_difficulty\');">' +
+         '<li id="right_difficulty_first"><span style="color: #dd6600;">Difficulty</span></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=1" >Single P</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=2" >Single Q</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=3" >Single R</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=4" >Single S</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=5" >Single T</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=6" >Single U</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=7" >Single V</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=8" >Single W</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=9" >Single X</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=10">Single 10</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=11">Single 11</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=12">Single 12</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=13">Single 13</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=14">Single 14</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=15">Single 15</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=16">Single 16</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=17">Single 17</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=18">Single 18</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=0&difficulty=19">Single 19</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=1" >Double P</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=2" >Double Q</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=3" >Double R</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=4" >Double S</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=5" >Double T</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=6" >Double U</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=7" >Double V</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=8" >Double W</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=9" >Double X</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=10">Double 10</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=11">Double 11</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=12">Double 12</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=13">Double 13</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=14">Double 14</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=15">Double 15</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=16">Double 16</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=17">Double 17</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=18">Double 18</a></li>' +
+         '<li><a href="./dancer_score.php?_=rival&ddrcode=' + sDdrcode + '&style=1&difficulty=19">Double 19</a></li>' +
+         '</ul>' +
+         '<ul id="right_series" class="dropdown" style="position: absolute; top: 55px; right: 50px; width: 45px; list-style: none; margin: 0; padding: 0;" onmouseover="rightVisible(\'right_series\');" onmouseout="rightHidden(\'right_series\');">' +
+         '<li id="right_series_first"><span style="color: #dd6600;">Series</span></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=a20"  >a20</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=a"    >a</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=2014" >2014</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=2013" >2013</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=x3"   >x3</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=x2"   >x2</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=x"    >x</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=nova2">nova2</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=nova" >nova</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=ext"  >ext</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=max2" >max2</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=max"  >max</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=5th"  >5th</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=4th"  >4th</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=3rd"  >3rd</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=2nd"  >2nd</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&series=1st"  >1st</a></li>' +
+         '</ul>' +
+         '<ul id="right_initial" class="dropdown" style="position: absolute; top: 55px; right: 0px; width: 50px; list-style: none; margin: 0; padding: 0;" onmouseover="rightVisible(\'right_initial\');" onmouseout="rightHidden(\'right_initial\');">' +
+         '<li id="right_initial_first"><span style="color: #dd6600;">Initial</span></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=ABC"  >ABC</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=DEF"  >DEF</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=GHIJ" >GHIJ</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=KLM"  >KLM</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=NOPQ" >NOPQ</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=RS"   >RS</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=TUV"  >TUV</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=WXYZ" >WXYZ</a></li>' +
+         '<li><a href="./dancer_score.php?_=matrix&ddrcode=' + sDdrcode + '&initial=OTHER">OTHER</a></li>' +
+         '</ul>';
+}
+
+function buildMusicRightNavi()
+{
+  return '<ul id="right_series" class="dropdown" style="position: absolute; top: 55px; right: 50px; width: 45px; list-style: none; margin: 0; padding: 0;" onmouseover="rightVisible(\'right_series\');" onmouseout="rightHidden(\'right_series\');">' +
+         '<li id="right_series_first"><span style="color: #dd6600;">Series</span></li>' +
+         '<li><a href="./music.php?_=matrix&series=a20"  >a20</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=a"    >a</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=2014" >2014</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=2013" >2013</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=x3"   >x3</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=x2"   >x2</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=x"    >x</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=nova2">nova2</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=nova" >nova</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=ext"  >ext</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=max2" >max2</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=max"  >max</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=5th"  >5th</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=4th"  >4th</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=3rd"  >3rd</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=2nd"  >2nd</a></li>' +
+         '<li><a href="./music.php?_=matrix&series=1st"  >1st</a></li>' +
+         '</ul>' +
+         '<ul id="right_initial" class="dropdown" style="position: absolute; top: 55px; right: 0px; width: 50px; list-style: none; margin: 0; padding: 0;" onmouseover="rightVisible(\'right_initial\');" onmouseout="rightHidden(\'right_initial\');">' +
+         '<li id="right_initial_first"><span style="color: #dd6600;">Initial</span></li>' +
+         '<li><a href="./music.php?_=matrix&initial=ABC"  >ABC</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=DEF"  >DEF</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=GHIJ" >GHIJ</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=KLM"  >KLM</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=NOPQ" >NOPQ</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=RS"   >RS</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=TUV"  >TUV</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=WXYZ" >WXYZ</a></li>' +
+         '<li><a href="./music.php?_=matrix&initial=OTHER">OTHER</a></li>' +
+         '</ul>';
+}
+
+function buildDifficultyRightNavi()
+{
+  return '<ul id="right_difficulty" class="dropdown" style="position: absolute; top: 55px; right: 0px; width: 68px; list-style: none; margin: 0; padding: 0;" onmouseover="rightVisible(\'right_difficulty\');" onmouseout="rightHidden(\'right_difficulty\');">' +
+         '<li id="right_difficulty_first"><span style="color: #dd6600;">Difficulty</span></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=1" >Single P</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=2" >Single Q</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=3" >Single R</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=4" >Single S</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=5" >Single T</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=6" >Single U</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=7" >Single V</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=8" >Single W</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=9" >Single X</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=10">Single 10</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=11">Single 11</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=12">Single 12</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=13">Single 13</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=14">Single 14</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=15">Single 15</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=16">Single 16</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=17">Single 17</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=18">Single 18</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=0&difficulty=19">Single 19</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=1" >Double P</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=2" >Double Q</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=3" >Double R</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=4" >Double S</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=5" >Double T</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=6" >Double U</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=7" >Double V</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=8" >Double W</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=9" >Double X</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=10">Double 10</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=11">Double 11</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=12">Double 12</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=13">Double 13</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=14">Double 14</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=15">Double 15</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=16">Double 16</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=17">Double 17</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=18">Double 18</a></li>' +
+         '<li><a href="./difficulty.php?_=ranking&style=1&difficulty=19">Double 19</a></li>' +
+         '</ul>';
+}
+
+// Google Analytics
+if (location.host == g['sHost']) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-75026048-1', 'auto');
+  ga('send', 'pageview');
+}
+</script><!-- -->
+<script type="text/javascript"><!--
+
+ddsScore    = new Array();
+dddFc       = new Array();
+
+php = '';
+/**/dStyle=0;
+dDifficulty=13;
+ddIndex   =new Array(402,329,824,852,336,146,757,101,13,277,339,798,694,429,737,228,652,104,104,765,232,73,233,819,106,498,490,755,885,865,283,284,622,724,810,109,408,348,575,157,884,34,640,589,908,756,524,586,802,62,736,160,159,919,242,162,457,243,750,352,535,909,19,738,605,688,639,414,63,448,645,493,777,712,745,911,358,171,731,57,364,39,365,866,540,650,296,181,367,84,184,590,525,915,465,466,467,189,300,66,459,460,461,487,58,301,303,23,305,646,565,806,483,807,481,554,310,310,383,256,832,698,689,522,259,878,699,504,732,131,501,767,740,654,663,92,309,518,135,836,462,463,464,433,136,669,900,269,138,395,271,272,893,835,397,398,426,499,140,214,399,882,592,456,576,753,661,549,704,629,667,658,405,791,723,846,655,855,761,676,856,527,596,705,642,566,845,671,762,758,141,673,685,760,651,532,693,144,674,649,725,774,224,847,660,898,796,769,691,453);
+dsMusic   =new Array('&Delta;MAX','&Uuml;bertreffen','*n[AvlbgB','50th Memorial Songs -The BEMANI History-','888','AA','ACE FOR ACES','Across the nightmare','AFRONOVA','AFRONOVA(X-Special)','aftershock!!','ALGORITHM','ALL MY HEART -±ÌöÉAí½µÌSÄðq¯é-','Amalgamation','Angelic Jelly','Arrabbiata','AWAKE','bag','bag','Be a Hero!','BRILLIANT 2U (&quot;STREAM&quot; Special)','BURNING HEATIi3 Option MIXj','CaptivAte`¾¢`','Catch Our Fire!','Colors `for EXTREME`','Condor','Cosmic Hurricane','Cosy Catastrophe','Crazy Shuffle','CROSS','Dance Celebration (System 7 Remix)','Dance Dance Revolution(X-Special)','Dance Partay','Dancer in the flare','DDR MEGAMIX','Destiny lovers','Diamond Dust','dirty digital','Dispersion Star','DoLL','DOWNER &amp; UPPER','DROP OUT','EGOISM 440','Elysium','ENDLESS','ENDYMION','escape','esrev:eR','Eternal Summer','exotic ethnic','Far east nightbird kors k Remix -DDR edit ver-','Fascination MAXX','Fascination `eternal love mix`','Firestorm','Flow (Jammin\' Ragga Mix)','Flow (True Style)','FLOWER','Fly away -mix del matador-','Fly far bounce','Freeze','GAIA','Glitch Angel','GRADIUSIC CYBER `AMD G5 MIX`','Grand Chariot','Habibe (Antuh muhleke)','HANDS UP IN THE AIR','HAPPYLUCKYYEAPPY','Haunted Rhapsody','Healing Vision `Angelic mix`','HEART BEAT FORMULA','HEART BEAT FORMULA (Vinyl Mix)','heron','High School Love','Hillbilly Shoes','Hopeful','I Love You','IF YOU WERE HERE (L.E.D.-G STYLE REMIX)','iFUTURELIST(DDR VERSION)','Illegal Function Call','INSERTiON','La receta','LEADING CYBER','Leaving&hellip;','LEVEL UP','LOVE &amp; JOY -Risk Junk MIX-','M.A.Y.U.','Malacca','MAX 300 (Super-Max-Me Mix)','MAX LOVE','MAXX UNLIMITED','Mind Parasite','MITOêÄI¢Îç«Áµã¾`èñ','Monkey Business','Mythomane','New York EVOLVED (Type A)','New York EVOLVED (Type B)','New York EVOLVED (Type C)','No.13','On The Break','ORION.78`civilization mix`','osaka EVOLVED -xA¨¨«ÉI- (TYPE1)','osaka EVOLVED -xA¨¨«ÉI- (TYPE2)','osaka EVOLVED -xA¨¨«ÉI- (TYPE3)','PARANOiA (kskst mix)','PARANOiA ETERNAL','PARANOiA ETERNAL(X-Special)','PARANOiA MAX`DIRTY MIX`(X-Special)','PARANOiA Rebirth','PARANOiA(X-Special)','PRANA{REVOLUTIONARY ADDICT (U1 DJ Mix)','printemps','Puberty Dysthymia','PUT YOUR FAITH IN ME (DA\'s Twinkly Disco Remix)','Rejoin','REVOLUTIONARY ADDICT','Right on time (RyuRemix)','SABER WING','SABER WING','sakura storm','Saturn','Seta Para Cima&uarr;&uarr;','SHION','siberite','Somehow You Found Me','SOUL CRASH','Splash Gold','Star Trail','Starry HEAVEN','STERLING SILVER','stoic (EXTREME version)','Straight Oath','Strawberry Chu&#9825;Chu&#9825;','StrayedCatz','Struggle','Summer fantasy (Darwin remix)','Sweet Sweet &hearts; Magic','SEAEGEA','The Island Song','The legend of MAX','The Light','tokyoEVOLVED (TYPE1)','tokyoEVOLVED (TYPE2)','tokyoEVOLVED (TYPE3)','Tribe','TRIP MACHINE survivor','TSUBASA','Une mage blanche','Uranus','V `for EXTREME`','Valkyrie dimension','Venus','volcano','voltississimo','Waiting','WH1TE RO5E','What Will Come of Me','Wicked Plastik','WILD SIDE','xenon','Xepher','You are a Star','·«È±Æ¾¯Å¢¢Å·','¿ã`¢ñoj[','AXgA (walk with you remix)','fbh{dez[','GLTCeBOIIàE¿áE¿á','h[p~','LPÈÊÀ','nbs[VZTCU','N]QCg','p&rarr;s&rarr;v&rarr;Yeah!','rrbgXg[','r[eBt V[g','vCGCWA -PHQ remix-','xBXhbvEt[NX','XC[cÍÆÜçÈ¢&#9834;','zLZZ[V','^CK[yCW','`mÌp[tFNg³ñ·¤³º','`mÌp[tFNg³ñ·¤³º (EDM REMIX)','CA[_X','LL','NKLXg','F(\)ÖÌÐ¹Ø','³ã ¢ç«Öê','ñIáÔ','v½pbVlCg','Ac}Wo`AK[','üú¨TZbg','K¹ÉÈêéBµR}hª éçµ¢','÷','½ÌXyVvZXTf[','\ñ¯ÀÌ¹æ','¹~NÌÁ¸','¾tÌÁ¸','n¢m[g','ÅÅÅÅÅÅÅÅÅÅ','å©ð','nûn¶`NNeBNX','©FÌòs@','Vmã','¬¦I___[u','øF','MîÌTpfA[h','ÈÈÄ·ÆC[','¢®¬möé{®³ (DDR Edition)','³bN©ÈCU[','Öô]¶','O','ãqbg`[g');
+ddSequence=new Array(2,3,3,3,2,3,2,4,3,4,3,3,3,3,3,2,3,3,4,2,4,3,3,2,4,3,3,2,3,3,3,4,4,3,2,3,4,4,3,4,3,3,2,4,3,1,4,3,3,3,3,2,2,2,3,4,3,3,3,4,2,2,3,3,3,3,2,3,3,3,3,4,3,3,3,2,3,4,2,3,4,3,4,3,3,3,4,2,4,2,3,3,3,3,2,2,2,3,3,3,2,2,2,2,3,4,4,3,4,2,3,2,3,3,3,4,3,4,4,3,3,3,3,3,3,2,3,4,3,3,3,3,3,3,3,3,3,4,2,3,2,2,2,4,3,3,3,4,4,1,4,3,2,3,3,3,3,4,3,3,4,3,4,4,3,3,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,4,3,3,3,3,4,3,3,2,3,3,4,3);
+dsMusicAsc=new Array('003','006','007','015','017','024','027','029','032','035','038','042','043','051','052','056','059','068','068','073','092','099','110','112','129','132','134','135','137','139','149','151','153','154','158','166','168','172','173','177','179','187','199','205','208','209','212','213','214','218','221','222','223','230','235','236','237','239','240','245','251','258','266','268','270','271','275','276','280','283','284','290','291','294','296','305','314','315','316','324','352','356','357','361','370','381','388','392','395','398','405','407','408','418','430','431','432','436','440','445','446','447','448','453','454','455','460','461','467','489','491','495','499','516','521','523','533','533','539','544','554','563','566','587','590','597','601','606','615','619','622','623','624','626','630','640','644','657','659','661','679','680','681','689','700','710','719','722','723','724','730','731','732','734','737','738','740','743','748','749','752','769','773','779','781','783','785','789','790','792','795','798','799','803','805','806','810','811','814','815','821','822','823','831','832','835','839','842','846','848','852','855','858','859','861','868','871','872','874','876','877','881','884','886','888','895','898','905','918','920');
+dsDdrcode=new Array('51527333');
+dsName   =new Array('kdubs');
+dsAverage=new Array('939,483');
+ddsScore[0]=new Array('-','978,130','964,050','-','-','-','320,760','-','981,690','-','-','950,870','924,540','955,440','991,310','-','985,070','-','-','-','-','898,250','961,240','-','983,240','-','-','-','961,000','983,440','-','-','-','975,680','889,210','-','-','-','-','990,610','-','970,650','899,110','-','983,660','-','-','-','991,170','979,750','-','620,420','846,900','-','-','-','-','991,070','-','-','957,110','-','870,480','-','-','-','-','-','949,240','928,260','-','-','985,820','-','981,310','-','-','929,950','-','894,260','-','-','-','985,410','-','-','-','-','991,620','-','971,820','-','936,400','954,270','-','-','-','977,460','930,480','979,590','-','-','-','-','916,050','-','-','924,260','-','948,760','-','-','873,860','-','895,260','949,670','835,960','795,120','-','976,510','982,820','-','957,260','-','-','963,960','984,180','-','-','983,060','-','964,090','-','999,340','-','962,130','-','-','-','997,310','-','-','-','933,270','899,710','-','940,160','-','980,590','-','-','-','959,480','956,490','926,860','911,460','931,380','958,770','-','958,570','982,260','977,960','-','-','950,850','-','-','848,760','-','-','965,490','975,430','-','970,010','988,670','-','-','-','981,650','-','-','-','-','994,740','-','926,500','-','994,670','981,120','-','936,390','926,550','971,720','-','-','-','872,500','914,710','-','863,320','970,820','-','959,310','958,820','-','942,440','-','-','989,710','-');
+dddFc[0]   =new Array(0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,2,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0);
+sProcessTime='0.0621';/**/
+
+dddScore = new Array();
+for (i = 0; i < ddsScore.length; i++) {
+  dddScore[i] = new Array();
+  for (j = 0; j < ddsScore[i].length; j++) {
+    dddScore[i][j] = ddsScore[i][j].replace(/,/g, '').replace(/-/g, '') - 0;
+  }
+}
+
+ddRank = new Array();
+for (i = 0; i < ddIndex.length; i++) {
+  ddRank[i] = 1;
+  dSum = 0;
+  for (j = 1; j < dddScore.length; j++) {
+    dSum += dddScore[j][i];
+    if (dddScore[0][i] < dddScore[j][i]) {
+      ddRank[i] += 1;
+    }
+  }
+  if (dddScore[0][i] == 0) {
+    if (dSum == 0) {
+      ddRank[i] = 9;
+    } else {
+      ddRank[i] = 8;
+    }
+  }
+}
+
+function rewriteScore(ddKeys, dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc)
+{
+  var sDiv;
+  
+  sDiv = '';
+  if (1 <= ddIndex.length && 1 <= dsName.length) {
+    sDiv = buildStyleDifficultyDiv(ddKeys, dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc);
+  }
+  
+  document.getElementById('score').innerHTML = sDiv;
+  return;
+}
+
+function buildStyleDifficultyDiv(ddKeys, dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc)
+{
+  var dKey, dDifficulty, sThName, sThAverage, sDiv, i, j, dsScore, ddFc, sThRank;
+  
+  sThName = '';
+  sThAverage = '';
+  for (i = 0; i < dsName.length; i++) {
+    sThName    += '<th class="score" style="font-size: 8pt; word-break: break-all;"><a href="dancer_profile.php?ddrcode=' + dsDdrcode[i] + '">' + dsName[i]    + '</a></th>';
+    sThAverage += '<th class="score"><a class="sort" href="javascript:void(0)" onclick="rewriteScore(createDescKeys(dddScore[' + i + ']), dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc)">' + dsAverage[i] + '</a></th>';
+  }
+  
+  sThRank = '';
+  if (2 <= ddsScore.length) {
+    sThRank = '<th rowspan="2" style="width: 30px;"><a class="sort" href="javascript:void(0)" onclick="rewriteScore(createAscKeys(ddRank), dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc)">Rank</a></th>';
+  }
+  
+  sDiv = '<div>' +
+           '<table cellspacing="0" cellpadding="2" id="' + g['dsStyle'][dStyle] + '_' + dDifficulty + '" style="margin-bottom: 40px;">' +
+             '<tr>' +
+               '<th rowspan="2"><a class="sort" href="javascript:void(0)" onclick="rewriteScore(createAscKeys(ddIndex), dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc)">index</a></th>' +
+               '<th rowspan="2" class="music"><a class="sort" href="javascript:void(0)" onclick="rewriteScore(createAscKeys(dsMusicAsc), dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc)">Music</a></th>' +
+               '<th rowspan="2" class="sequence"><a class="sort" href="javascript:void(0)" onclick="rewriteScore(createAscKeys(ddSequence), dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc)">Sequence</a></th>' +
+               sThRank +
+               sThName +
+             '</tr>' +
+             '<tr>' +
+               sThAverage +
+             '</tr>';
+  
+  for (i = 0; i < ddKeys.length; i++) {
+    dKey = ddKeys[i];
+    dsScore = new Array();
+    ddFc    = new Array();
+    for (j = 0; j < dsName.length; j++) {
+      dsScore[j] = ddsScore[j][dKey];
+      ddFc   [j] = dddFc[j][dKey];
+    }
+    sDiv += buildScoreTr(ddIndex[dKey], dsMusic[dKey], ddSequence[dKey], ddRank[dKey], dsScore, ddFc, dStyle);
+  }
+         
+  sDiv += '  </table>                                       ' +
+          '</div>';
+
+  return sDiv;
+}
+
+function buildScoreTr(dIndex, sMusic, dSequence, dRank, dsScore, ddFc, dStyle)
+{
+  var sTr, sTdRank, sTdScore, i;
+  
+  sTdRank = '';
+  if (2 <= dsScore.length) {
+    if (dsScore[0] == '-') {
+      dRank = '-';
+    }
+    sTdRank = '<td>' + dRank + '</td>';
+  }
+  
+  sTdScore = '';
+  for (i = 0; i < dsScore.length; i++) {
+    sTdScore += '<td class="' + g['dsFcClass'][ddFc[i]] + '">' + dsScore[i] + '</td>';
+  }
+  
+  sTr = '<tr>' +
+        '<td>' + dIndex + '</td>' +
+        '<td class="music"><a class="text" href="music.php?index=' + dIndex + '">' + sMusic + '</a></td>' +
+        '<td><a class="text ' + g['dsSequenceClass'][dSequence] + '" href="music.php?index=' + dIndex + '&style=' + dStyle + '&sequence=' + dSequence + '">' + g['dsSequence'][dSequence] + '</td>' +
+        sTdRank +
+        sTdScore +
+        '</tr>';
+  
+  return sTr;
+}
+
+window.onload = function()
+{
+  document.title = g['sSystemName'] + ' ' + dsName[0] + ' Score ' + g['dsStyle'][dStyle] + ' ' + g['dsDifficulty'][dDifficulty - 1];
+  document.formName.ddrcode.value = dsDdrcode[0];
+  
+  rewriteScore(createAscKeys(dsMusicAsc), dStyle, dDifficulty, dsDdrcode, dsName, dsAverage, ddIndex, dsMusic, ddSequence, ddsScore, dddFc);
+  
+  document.getElementById('breadcrumb').innerHTML = '<div class="breadcrumbLeft">' +
+                                                    '<a href="./">' + g['sSystemName'] + '</a>' + ' &gt; ' +
+                                                    '<a href="./dancer_profile.php?ddrcode=' + dsDdrcode[0] + '">' + dsName[0] + '</a>' + ' &gt; ' +
+                                                    '<a href="./dancer_score.php?ddrcode=' + dsDdrcode[0] + '">Score</a>' + ' &gt; ' +
+                                                    g['dsStyle'][dStyle] + ' ' + g['dsDifficulty'][dDifficulty - 1] +
+                                                    '</div>' +
+                                                    '<div class="breadcrumbRight">' +
+                                                      'Password <input type="password" name="password" value="" size="10" />@' +
+                                                      '<input type="button" value="XVæÊÖ" onclick="document.formName.submit();" />' +
+                                                    '</div>' +
+                                                    '<div style="clear: both;"></div>' +
+                                                    '<hr size="1" />';
+                                                    
+  document.getElementById('rightNavi').innerHTML = buildDancerRightNavi(dsDdrcode[0]);
+  document.getElementById('right_difficulty_first').style.display = 'block';
+  document.getElementById('right_series_first'    ).style.display = 'block';
+  document.getElementById('right_initial_first'   ).style.display = 'block';
+  
+  document.getElementById('footer').innerHTML = buildFooter(dNowYear);
+  document.getElementById('process_time').innerHTML = buildProcessTime(dJavaScriptStart, sProcessTime);
+}
+// --></script>
+</head>
+<body><form name="formName" action="dancer_input.php" method="post">
+<input type="hidden" name="_" value="" />
+<input type="hidden" name="ddrcode" value="" />
+<div class="wrapper">
+  <div style="background-color: #eeeeee; height: 2px; width: 980px;"></div>
+  <div id="breadcrumb" class="breadcrumb"></div>
+  <div id="rightNavi" class="rightNavi"></div>
+  <div id="score"></div>
+
+  <div id="footer" class="footer"></div>
+  <div id="process_time" class="process_time"></div>
+</div>
+
+</form></body></html>
+
