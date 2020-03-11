@@ -27,10 +27,10 @@ class Score:
         )
 
     def __str__(self):
-        return f"{self.rivalcode} | {self.songid} | {self.difficulty} | {self.songname} | {self.chart} | {self.score}"
+        return f"{self.songname} | {self.difficulty} | {self.score}"
 
     def __repr__(self):
-        return str(self)
+        return f"{self.rivalcode} | {self.songid} | {self.difficulty} | {self.songname} | {self.chart} | {self.score}"
 
 
 def query_scorepage(rivalcode, difficulty):

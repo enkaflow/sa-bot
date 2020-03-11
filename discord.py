@@ -4,7 +4,7 @@ from discord_webhook import DiscordWebhook
 class PostBot:
     def __init__(self):
         with open('webhook') as file:
-            url = file.read()
+            url = file.read().strip()
 
         self.d = DiscordWebhook(
             url=url
